@@ -5,20 +5,23 @@ import MapPicker, { MapPickerHandle } from "./MapPicker";
 import DatePickerModal from './DatePickerModal';
 
 const buttonStyle: React.CSSProperties = {
-    backgroundColor: '#1a73e8',
+    backgroundColor: '#0B3D91', // NASA blue
     color: '#fff',
-    border: 'none',
-    borderRadius: 6,
-    padding: '8px 12px',
-    cursor: 'pointer'
+    border: '1px solid rgba(255,255,255,0.15)',
+    borderRadius: 8,
+    padding: '10px 14px',
+    cursor: 'pointer',
+    boxShadow: '0 4px 12px rgba(11,61,145,0.35)'
 };
 
 const panelStyle: React.CSSProperties = {
-    backgroundColor: '#1a2c5a',
+    backgroundColor: 'rgba(7,23,63,0.75)',
     color: 'white',
     padding: 12,
-    borderRadius: 8,
-    maxWidth: 280
+    borderRadius: 12,
+    border: '1px solid rgba(255,255,255,0.12)',
+    maxWidth: 280,
+    boxShadow: '0 6px 18px rgba(0,0,0,0.35)'
 };
 
 const Maps: React.FC = () => {
@@ -26,6 +29,19 @@ const Maps: React.FC = () => {
     const [selected, setSelected] = useState<{ day: number; month: number } | null>(null);
     const [marker, setMarker] = useState<{ lat: number; lng: number } | null>(null);
     const mapRef = useRef<MapPickerHandle>(null);
+
+    // Persist selections so Factors page can read them
+    React.useEffect(() => {
+        if (marker) {
+            localStorage.setItem('selection_marker', JSON.stringify(marker));
+        }
+    }, [marker]);
+
+    React.useEffect(() => {
+        if (selected) {
+            localStorage.setItem('selection_date', JSON.stringify(selected));
+        }
+    }, [selected]);
 
     return (
         <MainLayout title="Análisis Climático">

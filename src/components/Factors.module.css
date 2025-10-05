@@ -38,7 +38,7 @@
 .leftContent {
   display: flex;
   flex-direction: column;
-  align-items: flex-start; /* cards aligned to left */
+  align-items: center; /* center cards under the title */
   width: 100%;
 }
 
@@ -49,18 +49,58 @@
   display: flex;
   flex-direction: column;
   gap: 12px;
-  align-self: flex-start; /* stick to the left side */
+  align-self: center; /* center under the title */
 }
 
 .card {
-  background: #EAFE07;
-  color: #000000;
-  border: none;
-  border-radius: 10px;
+  background: rgba(255, 255, 255, 0.06);
+  color: #E6EDFF;
+  border: 1px solid rgba(255,255,255,0.12);
+  border-radius: 12px;
   padding: 16px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
-  cursor: pointer;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.35);
+  text-align: left;
+}
+
+/* Inputs inside cards */
+.card label {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  font-size: 14px;
+  color: #CCD7FF;
+}
+.card input[type="number"],
+.card input[type="text"] {
+  background: rgba(7,23,63,0.6);
+  color: #FFFFFF;
+  border: 1px solid rgba(255,255,255,0.18);
+  border-radius: 10px;
+  padding: 10px 12px;
+  outline: none;
+}
+.card input:focus {
+  border-color: #0B3D91;
+  box-shadow: 0 0 0 3px rgba(11,61,145,0.25);
+}
+
+/* Submit button styled as a primary card */
+.cardsContainer > div > button.card {
+  background: linear-gradient(180deg, #0B3D91 0%, #0f4fb8 100%);
+  color: #FFFFFF;
+  border: 1px solid rgba(255,255,255,0.18);
   text-align: center;
+  font-weight: 600;
+  letter-spacing: 0.2px;
+  transition: transform 120ms ease, box-shadow 120ms ease;
+}
+.cardsContainer > div > button.card:hover:enabled {
+  transform: translateY(-1px);
+  box-shadow: 0 10px 20px rgba(11,61,145,0.45);
+}
+.cardsContainer > div > button.card:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
 }
 
 /* Modal styles */
@@ -112,4 +152,222 @@
   border-radius: 8px;
   padding: 8px 12px;
   cursor: pointer;
+}
+
+/* Right column: stack content vertically and center it */
+.rightColumn {
+  display: flex;
+  flex-direction: column;
+  align-items: center; /* center title and cards */
+  justify-content: flex-start;
+  text-align: center;
+}
+
+/* Radio group layout: left-aligned grid inside card */
+.radioGroup {
+  display: grid;
+  grid-template-columns: 1fr 1fr; /* two columns for better use of space */
+  gap: 8px 16px;
+  margin-top: 8px;
+  justify-items: start; /* keep items left-aligned */
+}
+
+.radioOption {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  white-space: nowrap;
+}
+
+/* Layout container for the two columns with a vertical divider */
+.container {
+  position: relative;
+  display: flex;
+  width: 100%;
+  min-height: 60vh;
+  color: #FFFFFF;
+}
+
+.column {
+  flex: 1;
+  display: flex;
+  /* Row layout by default */
+  align-items: flex-start; /* top alignment */
+  justify-content: center; /* center horizontally within the column */
+  text-align: center;
+  padding: 16px;
+}
+
+.divider {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 50%;
+  width: 1px;
+  background: rgba(255, 255, 255, 0.4);
+}
+
+.title {
+  margin: 0;
+  font-size: 28px;
+  font-weight: 700;
+  text-align: center;
+  align-self: center; /* keep title horizontally centered in the column */
+}
+
+/* Left content area to left-align cards while keeping the title centered at the top */
+.leftContent {
+  display: flex;
+  flex-direction: column;
+  align-items: center; /* center cards under the title */
+  width: 100%;
+}
+
+.cardsContainer {
+  margin-top: 12px;
+  width: 100%;
+  max-width: 380px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  align-self: center; /* center under the title */
+}
+
+.card {
+  background: rgba(255, 255, 255, 0.06);
+  color: #E6EDFF;
+  border: 1px solid rgba(255,255,255,0.12);
+  border-radius: 12px;
+  padding: 16px;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.35);
+  text-align: left;
+}
+
+/* Inputs inside cards */
+.card label {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  font-size: 14px;
+  color: #CCD7FF;
+}
+.card input[type="number"],
+.card input[type="text"] {
+  background: rgba(7,23,63,0.6);
+  color: #FFFFFF;
+  border: 1px solid rgba(255,255,255,0.18);
+  border-radius: 10px;
+  padding: 10px 12px;
+  outline: none;
+}
+.card input:focus {
+  border-color: #0B3D91;
+  box-shadow: 0 0 0 3px rgba(11,61,145,0.25);
+}
+
+/* Submit button styled as a primary card */
+.cardsContainer > div > button.card {
+  background: linear-gradient(180deg, #0B3D91 0%, #0f4fb8 100%);
+  color: #FFFFFF;
+  border: 1px solid rgba(255,255,255,0.18);
+  text-align: center;
+  font-weight: 600;
+  letter-spacing: 0.2px;
+  transition: transform 120ms ease, box-shadow 120ms ease;
+}
+.cardsContainer > div > button.card:hover:enabled {
+  transform: translateY(-1px);
+  box-shadow: 0 10px 20px rgba(11,61,145,0.45);
+}
+.cardsContainer > div > button.card:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+/* Modal styles */
+.overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+}
+
+.modalBox {
+  background: #0c205c;
+  color: #ffffff;
+  border-radius: 12px;
+  padding: 20px;
+  width: 90%;
+  max-width: 420px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+  text-align: center;
+  transition: opacity 200ms ease, transform 200ms ease;
+}
+
+/* visible state applied when animating in */
+.modalBox.visible {
+  opacity: 1;
+  transform: scale(1) translateY(0);
+}
+
+.modalBox.hidden {
+  opacity: 0;
+  transform: scale(0.96) translateY(8px);
+}
+
+.modalTitle {
+  margin-top: 0;
+  margin-bottom: 8px;
+  font-size: 22px;
+  font-weight: 700;
+}
+
+.closeBtn {
+  margin-top: 12px;
+  background: #1a73e8;
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  padding: 8px 12px;
+  cursor: pointer;
+}
+
+/* Right column: stack content vertically and center it */
+.rightColumn {
+  display: flex;
+  flex-direction: column;
+  align-items: center; /* center title and cards */
+  justify-content: flex-start;
+  text-align: center;
+}
+
+/* Radio group layout: left-aligned grid inside card */
+.radioGroup {
+  display: grid;
+  grid-template-columns: 1fr 1fr; /* two columns for better use of space */
+  gap: 8px 16px;
+  margin-top: 8px;
+  justify-items: start; /* keep items left-aligned */
+}
+
+.radioOption {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  white-space: nowrap;
+}
+
+/* Fix: override generic .card label column layout for radio options so text stays on the same line */
+.card .radioOption {
+  display: flex;
+  flex-direction: row; /* ensure circle and text are in a row */
+  align-items: center; /* vertical alignment */
+  gap: 8px;
+}
+
+.card .radioOption input[type="radio"] {
+  align-self: center; /* avoid shifting */
 }

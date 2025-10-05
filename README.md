@@ -2,6 +2,22 @@
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
+## Configuración de la API de Google Maps
+
+Este proyecto ya está preparado para usar una variable de entorno con la API Key de Google Maps. Sigue estos pasos:
+
+1. Copia el archivo `.env.example` a `.env.local` en la raíz del proyecto.
+2. Edita `.env.local` y coloca tu clave real:
+   
+   REACT_APP_GOOGLE_MAPS_API_KEY=TU_API_KEY_AQUI
+
+3. Guarda los cambios y reinicia el servidor de desarrollo si estaba corriendo.
+
+Notas importantes:
+- Create React App solo expone variables que comienzan con `REACT_APP_`.
+- No compartas ni confirmes tu clave real en git. Usa `.env.local` (no se debe subir al repositorio).
+- El componente que consume esta variable es `src/components/MapPicker.tsx`, que la pasa a `@react-google-maps/api`.
+
 ## Available Scripts
 
 In the project directory, you can run:

@@ -1,7 +1,7 @@
 import React, { ReactNode } from 'react';
 import styles from './MainLayout.module.css';
 import nasaLogo from '../Assets/Logo_Space.png';
-import projectLogo from '../Assets/Logo_app.jpg';
+import projectLogo from '../Assets/Logo_app.png';
 
 // Definimos las props que aceptará el componente
 interface MainLayoutProps {
@@ -17,6 +17,7 @@ const MainLayout: React.FC<MainLayoutProps> = ({ title, children, showCta = true
                 <img src={nasaLogo} alt="NASA Logo" className={styles.logo} />
                 <img src={projectLogo} alt="Project Logo" className={styles.logo} />
             </header>
+            <h1 className={styles.pageTitle}>{title}</h1>
             <main className={styles.mainContent}>
                 <div className={styles.contentArea}>{children}</div>
                 {showCta && (
@@ -24,7 +25,7 @@ const MainLayout: React.FC<MainLayoutProps> = ({ title, children, showCta = true
                         className={styles.bottomCta}
                         onClick={() => window.open('/factors', '_self')}
                     >
-                        Vamos a ello
+                        Calcular
                     </button>
                 )}
             </main>

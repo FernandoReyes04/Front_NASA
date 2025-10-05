@@ -31,7 +31,7 @@ const LoadingScreen: React.FC = () => {
     }, []);
 
     return (
-        <MainLayout title="Análisis en Progreso">
+        <MainLayout title="Análisis en Progreso" showCta={false}>
             <div className={styles.loadingContainer}>
                 {/* 5. Contenedor para las imágenes que se desvanecen */}
                 <div className={styles.imageContainer}>
