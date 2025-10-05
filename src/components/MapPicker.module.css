@@ -1,0 +1,26 @@
+.mapContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start; /* Acomoda el mapa al lado izquierdo */
+    gap: 12px;
+    color: white;
+}
+.locateBtn {
+    background-color: #1a73e8;
+    color: #fff;
+    border: none;
+    border-radius: 6px;
+    padding: 8px 12px;
+    cursor: pointer;
+}
+.locateBtn:hover {
+    background-color: #1669c1;
+}
+.coordinates {
+    background-color: #1a2c5a;
+    padding: 12px;
+    border-radius: 8px;
+}
+.coordinates h3 {
+    margin-top: 0;
+}
