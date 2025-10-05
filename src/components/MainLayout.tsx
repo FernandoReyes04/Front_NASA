@@ -22,7 +22,7 @@ const MainLayout: React.FC<MainLayoutProps> = ({ title, children, showCta = true
                 {showCta && (
                     <button
                         className={styles.bottomCta}
-                        onClick={() => window.open('/factors', '_blank')}
+                        onClick={() => window.open('/factors', '_self')}
                     >
                         Vamos a ello
                     </button>
