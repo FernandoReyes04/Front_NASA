@@ -9,7 +9,7 @@ export type AnalyzeRequest = {
   factors: Array<'temperature' | 'precipitation' | 'windspeed' | 'humidity' | 'comfort'>;
 };
 
-export async function postAnalyze(body: AnalyzeRequest, init?: RequestInit) {
+export  async function postAnalyze(body: AnalyzeRequest, init?: RequestInit) {
   const base = process.env.REACT_APP_API_BASE || '';
   const url = `${base}/v1/analyze`;
   const resp = await fetch(url, {
