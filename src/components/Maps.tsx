@@ -10,7 +10,7 @@ const Maps: React.FC = () => {
 
     return (
         <MainLayout title="Análisis Climático">
-            <h1>Escoger locación y Fecha</h1>
+            <h1 style={{ color: '#FFFFFF' }}>Escoger locación y Fecha</h1>
             <div style={{ display: 'flex', alignItems: 'center', gap: 12, marginBottom: 12 }}>
                 <button onClick={() => setOpen(true)} style={{
                     backgroundColor: '#1a73e8', color: '#fff', border: 'none', borderRadius: 6,
