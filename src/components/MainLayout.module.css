@@ -25,3 +25,30 @@
     margin: 20px;
     flex-grow: 1;
 }
+.homeContainer {
+    background-color: white;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+.header {
+    background-color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+}
+
+.logo {
+    margin: 0 15px;
+    height: 80px; /* Puedes ajustar esto según sea necesario */
+}
+
+.mainContent {
+    background-color: #07173F;
+    border-radius: 15px;
+    padding: 20px;
+    margin: 20px;
+    flex-grow: 1;
+}

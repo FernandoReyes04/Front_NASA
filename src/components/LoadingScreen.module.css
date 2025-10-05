@@ -1,0 +1,47 @@
+/* src/components/LoadingScreen.module.css */
+
+.loadingContainer {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    color: white;
+    text-align: center;
+    padding: 40px;
+}
+
+/* Contenedor que mantiene todas las imágenes en el mismo lugar */
+.imageContainer {
+    position: relative; /* Base para el posicionamiento absoluto de las imágenes */
+    width: 100px;  /* Ajusta el tamaño de los íconos */
+    height: 100px;
+    margin-bottom: 24px;
+}
+
+/* Estilo base para CADA imagen */
+.loadingImage {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0; /* Ocultas por defecto */
+    transition: opacity 0.4s ease-in-out; /* ¡La magia de la transición suave! */
+}
+
+/* Clase que se aplica a la imagen activa para que aparezca */
+.loadingImage.visible {
+    opacity: 1; /* Hacemos visible la imagen actual */
+}
+
+.loadingText {
+    margin: 0;
+    font-size: 1.5rem;
+}
+
+.subText {
+    margin-top: 8px;
+    font-size: 1rem;
+    opacity: 0.8;
+}

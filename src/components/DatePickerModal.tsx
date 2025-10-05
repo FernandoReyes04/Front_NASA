@@ -13,20 +13,22 @@ const monthNames = [
 ];
 
 function daysInMonth(month: number, year: number): number {
+    // month: 1-12
     return new Date(year, month, 0).getDate();
 }
 
 function startWeekday(month: number, year: number): number {
+    // 0 = domingo, 6 = sábado
     return new Date(year, month - 1, 1).getDay();
 }
 
 const DatePickerModal: React.FC<Props> = ({ open, onClose, onConfirm }) => {
     const today = useMemo(() => new Date(), []);
     const currentYear = today.getFullYear();
-    const currentMonth = today.getMonth() + 1;
+    const currentMonth = today.getMonth() + 1; // 1-12
     const currentDay = today.getDate();
 
-    const [viewMonth, setViewMonth] = useState<number>(currentMonth);
+    const [viewMonth, setViewMonth] = useState<number>(currentMonth); // mes visible en el calendario
     const [selectedDay, setSelectedDay] = useState<number>(currentDay);
     const [selectedMonth, setSelectedMonth] = useState<number>(currentMonth);
     const [error, setError] = useState<string>('');
@@ -40,8 +42,8 @@ const DatePickerModal: React.FC<Props> = ({ open, onClose, onConfirm }) => {
         }
     }, [open, currentMonth, currentDay]);
 
-    const canGoPrev = false;
-    const canGoNext = viewMonth < 12;
+    const canGoPrev = false; // No se permite retroceder
+    const canGoNext = viewMonth < 12; // Solo avanzar dentro del año actual
 
     const goNext = () => {
         if (!canGoNext) return;
@@ -49,18 +51,20 @@ const DatePickerModal: React.FC<Props> = ({ open, onClose, onConfirm }) => {
     };
 
     const totalDays = daysInMonth(viewMonth, currentYear);
-    const firstWeekday = startWeekday(viewMonth, currentYear);
+    const firstWeekday = startWeekday(viewMonth, currentYear); // 0..6
 
+    // Construimos una matriz de celdas (hasta 6 filas)
     const cells: Array<{ day: number | null; disabled: boolean }>[] = [];
     let week: Array<{ day: number | null; disabled: boolean }> = [];
 
+    // Rellenar huecos antes del día 1
     for (let i = 0; i < firstWeekday; i++) {
         week.push({ day: null, disabled: true });
     }
 
     for (let d = 1; d <= totalDays; d++) {
         const isPast = (viewMonth < currentMonth) || (viewMonth === currentMonth && d < currentDay);
-        const disabled = isPast;
+        const disabled = isPast; // bloquear días pasados
         week.push({ day: d, disabled });
         if (week.length === 7) {
             cells.push(week);
@@ -73,6 +77,7 @@ const DatePickerModal: React.FC<Props> = ({ open, onClose, onConfirm }) => {
     }
 
     const handleSelect = (d: number) => {
+        // Evitar seleccionar pasado
         if (viewMonth < currentMonth || (viewMonth === currentMonth && d < currentDay)) return;
         setSelectedMonth(viewMonth);
         setSelectedDay(d);
@@ -80,6 +85,7 @@ const DatePickerModal: React.FC<Props> = ({ open, onClose, onConfirm }) => {
     };
 
     const handleConfirm = () => {
+        // Validar selección
         if (
             selectedMonth < currentMonth ||
             (selectedMonth === currentMonth && selectedDay < currentDay)
@@ -113,7 +119,6 @@ const DatePickerModal: React.FC<Props> = ({ open, onClose, onConfirm }) => {
                     <h2 className={styles.title}>Seleccionar día y mes</h2>
                     <button className={styles.closeBtn} aria-label="Cerrar" onClick={onClose}>×</button>
                 </div>
-
                 <div className={styles.hint}>Solo puedes elegir desde hoy hacia adelante (año actual).</div>
 
                 <div className={styles.calendar}>
@@ -122,6 +127,7 @@ const DatePickerModal: React.FC<Props> = ({ open, onClose, onConfirm }) => {
                             className={`${styles.btn} ${styles.navBtn} ${!canGoPrev ? styles.navBtnDisabled : ''}`}
                             aria-label="Mes anterior"
                             disabled={!canGoPrev}
+                            // sin acción porque no se permite retroceder
                         >
                             ‹
                         </button>
@@ -174,8 +180,7 @@ const DatePickerModal: React.FC<Props> = ({ open, onClose, onConfirm }) => {
                     ))}
                 </div>
 
-                {error && <div className={styles.error}>{error}</div>}
-
+                <div className={styles.error}>{error}</div>
                 <div className={styles.footer}>
                     <button className={`${styles.btn} ${styles.cancel}`} onClick={onClose}>Cancelar</button>
                     <button className={`${styles.btn} ${styles.confirm}`} onClick={handleConfirm}>Confirmar</button>
