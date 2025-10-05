@@ -29,7 +29,7 @@ const Maps: React.FC = () => {
 
     return (
         <MainLayout title="Análisis Climático">
-            <div style={{ color: 'white' }}>
+            <div style={{ color: 'white', textAlign: 'center' }}>
                 <h1>Escoger locación y Fecha</h1>
             </div>
 
