@@ -7,9 +7,10 @@ import projectLogo from '../Assets/Logo_app.jpg';
 interface MainLayoutProps {
     title: string;
     children: ReactNode;
+    showCta?: boolean; // controla visibilidad del botón inferior
 }
 
-const MainLayout: React.FC<MainLayoutProps> = ({ title, children }) => {
+const MainLayout: React.FC<MainLayoutProps> = ({ title, children, showCta = true }) => {
     return (
         <div className={styles.layoutContainer}>
             <header className={styles.header}>
@@ -18,9 +19,14 @@ const MainLayout: React.FC<MainLayoutProps> = ({ title, children }) => {
             </header>
             <main className={styles.mainContent}>
                 <div className={styles.contentArea}>{children}</div>
-                <button className={styles.bottomCta}>
-                    Vamos a ello
-                </button>
+                {showCta && (
+                    <button
+                        className={styles.bottomCta}
+                        onClick={() => window.open('/factors', '_blank')}
+                    >
+                        Vamos a ello
+                    </button>
+                )}
             </main>
         </div>
     );

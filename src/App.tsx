@@ -1,23 +1,34 @@
-// src/App.tsx (Ejemplo de uso)
+// src/App.tsx
 
 import React, { useState, useEffect } from 'react';
 import Maps from './components/Maps';
 import LoadingScreen from './components/LoadingScreen';
 
 function App() {
-    const [isLoading, setIsLoading] = useState(true);
+    // Enrutamiento ligero sin dependencias: usar pathname
+    const path = window.location.pathname;
+    const isFactorsRoute = path === '/factors';
 
-    // Simulación de una carga de datos
+    // Cargar solo cuando se entra a "/factors"; no mostrar loading al iniciar en el mapa
+    const [isLoadingFactors, setIsLoadingFactors] = useState<boolean>(isFactorsRoute);
+
     useEffect(() => {
+        if (!isFactorsRoute) return; // no activar loading en la vista del mapa
+        setIsLoadingFactors(true);
         const timer = setTimeout(() => {
-            setIsLoading(false);
-        }, 4000); // Muestra la pantalla de carga por 4 segundos
-
+            setIsLoadingFactors(false);
+        }, 2000); // duración de la pantalla de carga al entrar a factors
         return () => clearTimeout(timer);
-    }, []);
+    }, [isFactorsRoute]);
 
-    // Si está cargando, muestra la pantalla de carga. Si no, muestra la app normal.
-    return isLoading ? <LoadingScreen /> : <Maps />;
+    if (isFactorsRoute) {
+        if (isLoadingFactors) return <LoadingScreen />;
+        const Factors = require('./components/Factors').default;
+        return <Factors />;
+    }
+
+    // Ruta por defecto: mapa sin pantalla de carga
+    return <Maps />;
 }
 
 export default App;
