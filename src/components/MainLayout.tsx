@@ -17,7 +17,10 @@ const MainLayout: React.FC<MainLayoutProps> = ({ title, children }) => {
                 <img src={projectLogo} alt="Project Logo" className={styles.logo} />
             </header>
             <main className={styles.mainContent}>
-                {children}
+                <div className={styles.contentArea}>{children}</div>
+                <button className={styles.bottomCta}>
+                    Vamos a ello
+                </button>
             </main>
         </div>
     );

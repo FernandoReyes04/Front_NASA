@@ -1,5 +1,5 @@
 // Nombre de archivo sugerido: MapPicker.tsx
-import React, { useState, useCallback } from 'react';
+import React, { useState, useCallback, forwardRef, useImperativeHandle } from 'react';
 import { GoogleMap, useJsApiLoader, Marker } from '@react-google-maps/api';
 import styles from './MapPicker.module.css';
 
@@ -13,8 +13,16 @@ const initialCenter = {
     lng: 150.644
 };
 
+export type MapPickerHandle = {
+    locate: () => void;
+};
+
+type MapPickerProps = {
+    onMarkerChange?: (pos: { lat: number; lng: number } | null) => void;
+};
+
 // Componente renombrado para consistencia
-const MapPicker: React.FC = () => {
+const MapPicker = forwardRef<MapPickerHandle, MapPickerProps>(({ onMarkerChange }, ref) => {
     const { isLoaded } = useJsApiLoader({
         id: 'google-map-script',
         googleMapsApiKey: process.env.REACT_APP_GOOGLE_MAPS_API_KEY || ""
@@ -24,17 +32,21 @@ const MapPicker: React.FC = () => {
     // 1. Nuevo estado para el centro del mapa
     const [mapCenter, setMapCenter] = useState(initialCenter);
 
+    const updateMarker = useCallback((pos: { lat: number; lng: number } | null) => {
+        setMarker(pos);
+        if (pos) setMapCenter(pos);
+        if (onMarkerChange) onMarkerChange(pos);
+    }, [onMarkerChange]);
+
     const onMapClick = useCallback((e: any) => {
         if (e?.latLng) {
             const newPos = {
                 lat: e.latLng.lat(),
                 lng: e.latLng.lng(),
             };
-            setMarker(newPos);
-            // 2. Actualizar el centro al hacer clic
-            setMapCenter(newPos);
+            updateMarker(newPos);
         }
-    }, []);
+    }, [updateMarker]);
 
     const useMyLocation = useCallback(() => {
         if (!navigator.geolocation) {
@@ -45,8 +57,7 @@ const MapPicker: React.FC = () => {
             (position) => {
                 const { latitude, longitude } = position.coords;
                 const currentPos = { lat: latitude, lng: longitude };
-                setMarker(currentPos);
-                setMapCenter(currentPos);
+                updateMarker(currentPos);
             },
             (error) => {
                 console.error('Error obteniendo ubicación:', error);
@@ -54,13 +65,14 @@ const MapPicker: React.FC = () => {
             },
             { enableHighAccuracy: true, timeout: 10000, maximumAge: 0 }
         );
-    }, []);
+    }, [updateMarker]);
+
+    useImperativeHandle(ref, () => ({ locate: useMyLocation }), [useMyLocation]);
 
     if (!isLoaded) return <div>Cargando mapa...</div>;
 
     return (
         <div className={styles.mapContainer}>
-            <button className={styles.locateBtn} onClick={useMyLocation}>Usar mi ubicación actual</button>
             <GoogleMap
                 mapContainerStyle={containerStyle}
                 // 3. Usar el estado del centro en lugar del valor fijo
@@ -70,15 +82,9 @@ const MapPicker: React.FC = () => {
             >
                 {marker && <Marker position={marker} />}
             </GoogleMap>
-            {marker && (
-                <div className={styles.coordinates}>
-                    <h3>Coordenadas Seleccionadas:</h3>
-                    <p>Latitud: {marker.lat.toFixed(4)}</p>
-                    <p>Longitud: {marker.lng.toFixed(4)}</p>
-                </div>
-            )}
+            {/* Coordenadas removidas de aquí; ahora se muestran en el panel derecho */}
         </div>
     );
-};
+});
 
 export default MapPicker;

@@ -5,6 +5,14 @@
     flex-direction: column;
 }
 
+/* Added: layoutContainer used by MainLayout */
+.layoutContainer {
+    background-color: white;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
 .header {
     background-color: white;
     display: flex;
@@ -24,4 +32,25 @@
     padding: 20px;
     margin: 20px;
     flex-grow: 1;
+    display: flex; /* Allow vertical layout inside */
+    flex-direction: column;
+}
+
+/* Content area grows to fill available space, keeping CTA at the bottom */
+.contentArea {
+    flex: 1;
+}
+
+/* Optional styling for the bottom CTA button */
+.bottomCta {
+    align-self: flex-end; /* keep it to the right; remove if full-width desired */
+    background-color: #EAFE07;
+    color: #07173F;
+    border: none;
+    border-radius: 6px;
+    padding: 10px 16px;
+    cursor: pointer;
+}
+.bottomCta:hover {
+    background-color: #d9f204;
 }
